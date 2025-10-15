@@ -1,0 +1,41 @@
+{% extends 'core/base.html' %}
+{% load static %}
+{% block title %}Página{% endblock %}
+{% block content %}
+<main role="main">
+  <div class="container">
+    <div class="row justify-content-md-center">
+      <div class="col-md-3">
+        <img src="{% static 'core/img/placeholder.png' %}" class="img-fluid"/>
+      </div>
+      <div class="col-md-6 mt-3">
+        <h3>Dice Roller</h3>
+        <p>
+          Dados para deciciones rápidas.
+        </p>
+        <form method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+          <button type="submit" name="dice_type" value="d4">Throw D4</button>
+          <button type="submit" name="dice_type" value="d6">Throw D6</button>
+          <button type="submit" name="dice_type" value="d8">Throw D8</button>
+        </form>
+        <form method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+          <button type="submit" name="dice_type" value="d10">Throw D10</button>
+          <button type="submit" name="dice_type" value="d12">Throw D12</button>
+          <button type="submit" name="dice_type" value="d20">Throw D20</button>
+        </form>
+        <form method="POST">
+          {% csrf_token %}
+          <div class="form-group">
+          <button type="submit" name="dice_type" value="d100">Throw D100</button>
+        </form>
+        <h3>Resultado: {{ random_number }}</h3>
+      
+      </div>
+    </div>
+  </div>
+</main>
+{% endblock %}

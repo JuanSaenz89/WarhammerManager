@@ -1,0 +1,27 @@
+{% extends 'core/base.html' %}
+{% load static %}
+
+{% block title %}{{title}}{% endblock %}
+
+{% block content %}
+<div class="container">
+  <div style="padding-top:50px; text-align:center;">
+    <h1>{{title}}</h1>
+    <p class="lead">Utilities for multiplayer campaings</p>
+  </div>
+</div>
+<main role="main" class="container">
+  <div class="row justify-content-md-center">
+    <div class="col-md-3">
+      <img src="{% static 'core/img/warhammer.png' %}" class="img-fluid"/>
+    </div>
+    <div class="col-md-6 mt-3">
+      <h3>Welcome to Warhammer Manager</h3>
+      <p>This is a web application designed to help you manage your multiplayer Warhammer campaigns. 
+      It provides tools for tracking campaings manual battles, dice rolls, and more.</p>
+      <p>To get started, you can create an account or log in if you already have one. Once logged in, you can create and manage your campaigns, add players, and keep track of your progress.</p>
+      <p>Feel free to explore the features and let us know if you have any questions or feedback!</p>
+    </div>
+  </div>
+</main>
+{% endblock %}
