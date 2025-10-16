@@ -11,16 +11,21 @@ https://docs.djangoproject.com/en/5.2/ref/settings/
 """
 
 from pathlib import Path
+import os
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
+
 
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/5.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = 'django-insecure-^24cqc6qkc0g5p0*39_obkr20*&y+8j-#c3g$m+yu#-px7nm(g'
+SECRET_KEY = os.environ.get(
+    'DJANGO_SECRET_KEY',
+    'django-insecure-+k3v#(a8l$y5&g0v1zqz3v)l1v9f1e^m)h@+7k&u0j4v$y5&g0v1zqz3v)l1v9f1e^m)h@+7k&u0j4'
+)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
@@ -39,7 +44,7 @@ INSTALLED_APPS = [
     'django.contrib.staticfiles',
     'core',
     'dice',
-    'sing_up',
+    'sign_up',
 ]
 
 MIDDLEWARE = [
@@ -77,10 +82,28 @@ WSGI_APPLICATION = 'warhammer_manager.wsgi.application'
 
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
+        'ENGINE': 'django.db.backends.mysql',
+        'NAME': 'warhammer',
+        'USER': 'root',
+        'PASSWORD': (
+            os.environ['DB_PASSWORD']
+            if os.environ.get('DB_PASSWORD')
+            else (_ for _ in ()).throw(
+                RuntimeError("Environment variable DB_PASSWORD is not set. Please set it before running the server.")
+            )
+        ),
+        'HOST': 'localhost',
+        'PORT': '3306',
+
+        'OPTIONS': {
+            'read_default_file': os.environ.get(
+                'MYSQL_CNF_PATH',
+                str(BASE_DIR / 'my.cnf')
+            ),
+        },
     }
 }
+
 
 
 # Password validation

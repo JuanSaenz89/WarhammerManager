@@ -1,11 +1,11 @@
 from django.shortcuts import render
 from django.contrib.auth import authenticate, login as auth_login, logout as auth_logout
 from django.contrib.auth.models import User
-from .forms import SingUpForm, LoginForm
+from .forms import SignUpForm, LoginForm
 # Create your views here.
 
-def sing_up(request):
-    sing_up_form = SingUpForm()
+def sign_up(request):
+    sign_form = SignUpForm()
     log_in_form = LoginForm()
     if request.method == 'POST':
 
@@ -16,7 +16,7 @@ def sing_up(request):
 
         if password != password_confirm:
 
-            return render(request, 'sing_up/sing_up.html', {'error': 'Passwords do not match', 'form': sing_up_form})
+            return render(request, 'sign_up/sign_up.html', {'error': 'Passwords do not match', 'form': sign_form})
         # You can add more fields like email if needed
         if username and password:
 
@@ -24,17 +24,17 @@ def sing_up(request):
 
                 user = User.objects.create_user(username=username,email=email , password=password, is_staff=True, is_superuser=True )
                 user.save()
-                return render(request, 'sing_up/login.html', {'message': 'User created successfully. Please log in.', 'form': log_in_form})
+                return render(request, 'sign_up/login.html', {'message': 'User created successfully. Please log in.', 'form': log_in_form})
             
             except Exception as e:
 
                 if 'UNIQUE constraint' in str(e):
 
-                    return render(request, 'sing_up/sing_up.html', {'error': 'Username already exists','form': sing_up_form})
-                return render(request, 'sing_up/sing_up.html', {'error': 'Error creating user','form': sing_up_form})
+                    return render(request, 'sign_up/sign_up.html', {'error': 'Username already exists','form': sign_form})
+                return render(request, 'sign_up/sign_up.html', {'error': 'Error creating user','form': sign_form})
         else:
-            return render(request, 'sing_up/sing_up.html', {'error': 'Please provide both username and password','form': sing_up_form})
-    return render(request, 'sing_up/sing_up.html', {'form': sing_up_form})
+            return render(request, 'sign_up/sign_up.html', {'error': 'Please provide both username and password','form': sign_form})
+    return render(request, 'sign_up/sign_up.html', {'form': sign_form})
 
 
 def login(request):
@@ -48,9 +48,9 @@ def login(request):
             auth_login(request, user)
             return render(request, 'core/home.html', {'message': 'Logged in successfully'})
         else:
-            return render(request, 'sing_up/login.html', {'error': 'Invalid username or password', 'form': login_form})
+            return render(request, 'sign_up/login.html', {'error': 'Invalid username or password', 'form': login_form})
     
-    return render(request, 'sing_up/login.html', {'form': login_form})
+    return render(request, 'sign_up/login.html', {'form': login_form})
     
 
 def log_out(request):

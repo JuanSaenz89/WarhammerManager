@@ -1,6 +1,6 @@
 from django import forms
 
-class SingUpForm(forms.Form):
+class SignUpForm(forms.Form):
     username = forms.CharField(max_length=150, label='Username', required=True, widget=forms.TextInput(
         attrs={
             'class': 'form-control',
@@ -25,6 +25,8 @@ class SingUpForm(forms.Form):
             'placeholder': 'Repeat your password here...'
         }
     ))
+
+
 
 class LoginForm(forms.Form):
     username = forms.CharField(max_length=150, label='Username', required=True, widget=forms.TextInput(

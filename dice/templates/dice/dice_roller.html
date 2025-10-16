@@ -11,29 +11,25 @@
       <div class="col-md-6 mt-3">
         <h3>Dice Roller</h3>
         <p>
-          Dados para deciciones rápidas.
+          Dados.
         </p>
         <form method="POST">
           {% csrf_token %}
-          <div class="form-group">
-          <button type="submit" name="dice_type" value="d4">Throw D4</button>
-          <button type="submit" name="dice_type" value="d6">Throw D6</button>
-          <button type="submit" name="dice_type" value="d8">Throw D8</button>
+          <div class="form-group" style="display:flex; flex-wrap:wrap; gap:10px;">
+            <button type="submit" name="dice_type" value="d4">Throw D4</button>
+            <button type="submit" name="dice_type" value="d6">Throw D6</button>
+            <button type="submit" name="dice_type" value="d8">Throw D8</button>
+            <button type="submit" name="dice_type" value="d10">Throw D10</button>
+            <button type="submit" name="dice_type" value="d12">Throw D12</button>
+            <button type="submit" name="dice_type" value="d20">Throw D20</button>
+            <button type="submit" name="dice_type" value="d100">Throw D100</button>
+          </div>
         </form>
-        <form method="POST">
-          {% csrf_token %}
-          <div class="form-group">
-          <button type="submit" name="dice_type" value="d10">Throw D10</button>
-          <button type="submit" name="dice_type" value="d12">Throw D12</button>
-          <button type="submit" name="dice_type" value="d20">Throw D20</button>
-        </form>
-        <form method="POST">
-          {% csrf_token %}
-          <div class="form-group">
-          <button type="submit" name="dice_type" value="d100">Throw D100</button>
-        </form>
+        <br/>
+        {% if random_number %}
+        <hr/>
         <h3>Resultado: {{ random_number }}</h3>
-      
+        {% endif %}
       </div>
     </div>
   </div>

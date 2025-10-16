@@ -7,22 +7,20 @@ def dice_roller(request, *args, **kwargs):
     dyce_type = None  # Default to a six-sided die
 
     if request.method == 'POST':
-        dyce_type = request.POST.get('dice_type')
+        dice_type = request.POST.get("dice_type")
 
-        if dyce_type == "d4":
-            random_number = random.randint(1, 4)
-        elif dyce_type == "d6":
-            random_number = random.randint(1, 6)
-        elif dyce_type == "d8":
-            random_number = random.randint(1, 8)
-        elif dyce_type == "d10":
-            random_number = random.randint(1, 10)
-        elif dyce_type == "d12":
-            random_number = random.randint(1, 12)
-        elif dyce_type == "d20":
-            random_number = random.randint(1, 20)
-        elif dyce_type == "d100":
-            random_number = random.randint(1, 100)
+        dice_faces = {
+            "d4": 4,
+            "d6": 6,
+            "d8": 8,
+            "d10": 10,
+            "d12": 12,
+            "d20": 20,
+            "d100": 100,
+        }
+
+        if dice_type in dice_faces:
+            random_number = random.randint(1, dice_faces[dice_type])
 
     return render(request, 'dice/dice_roller.html',{
         'random_number': random_number,
